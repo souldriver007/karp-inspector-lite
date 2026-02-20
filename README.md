@@ -80,6 +80,52 @@ Or add `.mcp.json` to your project root:
 | *"What changed in auth.js?"* | Diff between saved file versions |
 | *"Switch to my other project"* | Loads a different codebase (with cached index) |
 
+## Examples
+
+### Example 1: Find code by concept
+**User prompt:** "Find the payment processing logic in my project"
+
+**Expected behavior:**
+- Extension runs `search_code` with semantic query
+- Returns matching functions with file paths and line numbers
+- Results ranked by relevance (cosine similarity score)
+- Claude can then read or explain the matched code
+
+### Example 2: Search for exact strings
+**User prompt:** "Find every file that imports the database module"
+
+**Expected behavior:**
+- Extension runs `grep_code` for the import pattern
+- Returns matching lines with 2 lines of surrounding context
+- Shows file path and line number for each match
+- Supports regex for complex patterns
+
+### Example 3: Understand file structure
+**User prompt:** "What functions are in server.py?"
+
+**Expected behavior:**
+- Extension runs `file_outline` on the target file
+- Returns all classes, methods, and functions with signatures
+- Includes line numbers for each definition
+- Does not load full file contents into context
+
+### Example 4: Track changes
+**User prompt:** "I just edited auth.js — update the index and show me what changed"
+
+**Expected behavior:**
+- Extension runs `reindex_file` to update the index and save a snapshot
+- Then runs `file_diff` to compare against the previous version
+- Returns unified diff showing additions and deletions
+
+### Example 5: Multi-project workflow
+**User prompt:** "Switch to my frontend project at C:/projects/webapp"
+
+**Expected behavior:**
+- Extension runs `set_project` with the new path
+- Loads cached index if previously indexed (instant)
+- If no cache, prompts to run `index_project`
+- Previous project’s cache is preserved for switching back
+
 ## Tools (9)
 
 | Tool | Description |
@@ -187,6 +233,25 @@ karp-inspector-lite/
 - Disk persistence — instant restart, no re-indexing
 - Multi-project support — switch between codebases with cached indexes
 - 9 tools — search, grep, outline, diff, history, stats, index, reindex, project switching
+
+## Privacy Policy
+
+KARP Inspector Lite is fully local. **No data is collected, transmitted, or shared.**
+
+- No telemetry, analytics, or tracking
+- No network requests after initial model download
+- No API keys or external services
+- Your code never leaves your machine
+- Cache and snapshots stored locally in `.karp-inspector/`
+
+Full privacy policy: [PRIVACY.md](PRIVACY.md)
+
+## Support
+
+For issues, bugs, or feature requests:
+
+- **GitHub Issues:** https://github.com/souldriver007/karp-inspector-lite/issues
+- **Email:** matzrtrading@gmail.com
 
 ## Contributing
 

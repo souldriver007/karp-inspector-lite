@@ -1,5 +1,5 @@
 {
-  "manifest_version": "0.1",
+  "manifest_version": "0.3",
   "name": "karp-inspector-lite",
   "display_name": "KARP Inspector Lite",
   "version": "1.0.0",
@@ -8,8 +8,12 @@
     "name": "SoulDriver",
     "url": "https://souldriver.com.au"
   },
+  "repository": "https://github.com/souldriver007/karp-inspector-lite",
   "icon": "icon.png",
   "license": "MIT",
+  "privacy_policies": [
+    "https://github.com/souldriver007/karp-inspector-lite/blob/main/PRIVACY.md"
+  ],
   "server": {
     "type": "node",
     "entry_point": "server/index.js",

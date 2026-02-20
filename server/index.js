@@ -36,6 +36,7 @@ const TOOLS = [
     {
         name: 'search_code',
         description: 'Semantic search across your codebase using natural language. Returns matching functions, classes, and code blocks with file paths and line numbers. Use for finding code by meaning — e.g. "authentication logic", "database connection setup", "payment handling". For exact variable names or strings, use grep_code instead. Requires index_project to have been run first.',
+        annotations: { title: 'Semantic Code Search', readOnlyHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -50,6 +51,7 @@ const TOOLS = [
     {
         name: 'grep_code',
         description: 'Exact string or regex search across the codebase. Returns matching lines with context. Use for exact variable names, imports, error messages, or literal strings. For finding code by concept or meaning, use search_code instead.',
+        annotations: { title: 'Grep Code Search', readOnlyHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -67,6 +69,7 @@ const TOOLS = [
     {
         name: 'file_outline',
         description: 'Structural outline of any file — classes, methods, functions with signatures and line numbers — without loading content.',
+        annotations: { title: 'File Outline', readOnlyHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -79,6 +82,7 @@ const TOOLS = [
     {
         name: 'index_project',
         description: 'Index or re-index the project. Run this before using search_code for the first time on a project. Only processes changed files via SHA256 detection. First run downloads a small embedding model (~50MB). Subsequent runs load from disk cache in under a second.',
+        annotations: { title: 'Index Project', readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -89,6 +93,7 @@ const TOOLS = [
     {
         name: 'reindex_file',
         description: 'Re-index a single file after editing to keep search results current. Saves a snapshot for version tracking.',
+        annotations: { title: 'Re-index File', readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -100,6 +105,7 @@ const TOOLS = [
     {
         name: 'file_history',
         description: 'List saved snapshots of a file.',
+        annotations: { title: 'File History', readOnlyHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -111,6 +117,7 @@ const TOOLS = [
     {
         name: 'file_diff',
         description: 'Diff between two snapshots of a file.',
+        annotations: { title: 'File Diff', readOnlyHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
@@ -124,6 +131,7 @@ const TOOLS = [
     {
         name: 'project_stats',
         description: 'Index statistics — files, chunks, extensions. Use to verify the project is indexed and check coverage before searching.',
+        annotations: { title: 'Project Stats', readOnlyHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {}
@@ -132,6 +140,7 @@ const TOOLS = [
     {
         name: 'set_project',
         description: 'Switch to a different project directory. Loads cached index if available, otherwise you will need to run index_project.',
+        annotations: { title: 'Switch Project', readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false },
         inputSchema: {
             type: 'object',
             properties: {
