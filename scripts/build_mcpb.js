@@ -66,13 +66,13 @@ console.log('║  by SoulDriver (souldriver.com.au)           ║');
 console.log('╚══════════════════════════════════════════════╝');
 console.log('');
 
-// Step 1: Ensure production dependencies
-console.log('[1/5] Checking dependencies...');
-if (!fs.existsSync(path.join(ROOT, 'node_modules'))) {
-    console.log('      Installing production dependencies...');
-    execSync('npm install --production', { cwd: ROOT, stdio: 'inherit' });
+// Step 1: Verify package.json exists
+console.log('[1/5] Checking project...');
+if (!fs.existsSync(path.join(ROOT, 'package.json'))) {
+    console.error('      ✗ package.json not found!');
+    process.exit(1);
 }
-console.log('      ✓ node_modules ready');
+console.log('      ✓ package.json found');
 
 // Step 2: Clean staging directory
 console.log('[2/5] Preparing staging directory...');
@@ -100,9 +100,10 @@ console.log('      ✓ package.json');
 copyDir(path.join(ROOT, 'server'), path.join(STAGE, 'server'));
 console.log('      ✓ server/ (index.js, indexer.js, searcher.js)');
 
-// node_modules/ (production only)
-copyDir(path.join(ROOT, 'node_modules'), path.join(STAGE, 'node_modules'));
-console.log('      ✓ node_modules/ (production dependencies)');
+// node_modules/ (PRODUCTION ONLY — strips jest, babel, istanbul, etc.)
+console.log('      Installing production dependencies only (this strips dev deps)...');
+execSync('npm install --production --no-optional', { cwd: STAGE, stdio: 'inherit' });
+console.log('      ✓ node_modules/ (production dependencies only)');
 
 // icon.png (optional)
 const iconPath = path.join(ROOT, 'assets', 'icon.png');
