@@ -102,7 +102,7 @@ console.log('      ✓ server/ (index.js, indexer.js, searcher.js)');
 
 // node_modules/ (PRODUCTION ONLY — strips jest, babel, istanbul, etc.)
 console.log('      Installing production dependencies only (this strips dev deps)...');
-execSync('npm install --production --no-optional', { cwd: STAGE, stdio: 'inherit' });
+execSync('npm install --omit=dev', { cwd: STAGE, stdio: 'inherit' });
 console.log('      ✓ node_modules/ (production dependencies only)');
 
 // icon.png (optional)
