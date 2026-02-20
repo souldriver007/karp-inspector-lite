@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.mcpb
+
+# Cache and runtime
+.karp-inspector/
+*.onnx
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local config (user-specific)
+claude_desktop_config.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

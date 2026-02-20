@@ -1,0 +1,70 @@
+{
+  "manifest_version": "0.1",
+  "name": "karp-inspector-lite",
+  "display_name": "KARP Inspector Lite",
+  "version": "1.0.0",
+  "description": "Semantic codebase search for Claude Desktop. Find code by meaning, not just keywords. Zero API keys, zero setup.",
+  "author": {
+    "name": "SoulDriver",
+    "url": "https://souldriver.com.au"
+  },
+  "icon": "icon.png",
+  "license": "MIT",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "PROJECT_PATH": "${user_config.project_path}"
+      }
+    }
+  },
+  "user_config": {
+    "project_path": {
+      "type": "directory",
+      "title": "Project Folder",
+      "description": "Select the codebase folder to index and search",
+      "required": true
+    }
+  },
+  "tools": [
+    {
+      "name": "search_code",
+      "description": "Semantic search by meaning. Use for concepts like 'authentication logic' or 'payment handling'. For exact strings, use grep_code. Requires index_project first."
+    },
+    {
+      "name": "grep_code",
+      "description": "Exact string or regex search. Use for variable names, imports, error messages. For concepts, use search_code."
+    },
+    {
+      "name": "file_outline",
+      "description": "Structural outline of any file — classes, methods, functions with signatures and line numbers — without loading content."
+    },
+    {
+      "name": "index_project",
+      "description": "Index or re-index the project. Run before first search_code use. Loads from disk cache in under a second on subsequent runs."
+    },
+    {
+      "name": "reindex_file",
+      "description": "Re-index a single file after editing to keep search results current. Saves a snapshot."
+    },
+    {
+      "name": "file_history",
+      "description": "List saved snapshots of a file."
+    },
+    {
+      "name": "file_diff",
+      "description": "Diff between two snapshots of a file."
+    },
+    {
+      "name": "project_stats",
+      "description": "Index statistics. Use to verify the project is indexed and check coverage before searching."
+    },
+    {
+      "name": "set_project",
+      "description": "Switch to a different project directory. Loads cached index if available, otherwise run index_project."
+    }
+  ]
+}
