@@ -147,7 +147,7 @@ Or add `.mcp.json` to your project root:
 3. **Search** — Converts your question into a vector and finds the closest matching code chunks via cosine similarity
 4. **Return** — Claude gets back the relevant code with file paths and line numbers, not your entire codebase
 
-The embedding model (~50MB) downloads automatically on first use. After that, everything works offline.
+The embedding model (~130MB) downloads automatically on first use. After that, everything works offline.
 
 ## Performance
 
@@ -176,7 +176,7 @@ Python, JavaScript, TypeScript, HTML, CSS, Markdown, and plain text out of the b
 ## Requirements
 
 - **Claude Desktop** (Windows or macOS) — that's it
-- ~50MB disk for the embedding model (downloaded once, automatically)
+- ~130MB disk for the embedding model (downloaded once, automatically)
 - No Python, no Docker, no API keys, no external services
 
 ## Building from Source
@@ -223,7 +223,7 @@ karp-inspector-lite/
 | claude-context-local | None | FAISS + Python + CUDA | High | 1.2GB |
 | mcp-codebase-index | Gemini + Qdrant | Qdrant Cloud + Gemini | High | Cloud |
 | Codebase MCP | Ollama | PostgreSQL + pgvector | Very High | Varies |
-| **KARP Inspector Lite** | **None** | **None** | **Double-click** | **50MB** |
+| **KARP Inspector Lite** | **None** | **None** | **Double-click** | **130MB** |
 
 **Key differentiators:**
 - Zero API keys — ONNX embeddings run locally

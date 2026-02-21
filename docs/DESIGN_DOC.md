@@ -35,7 +35,7 @@ index.js ─── MCP protocol handler, tool routing
 | Decision | Choice | Why |
 |---|---|---|
 | Language | Node.js | Ships with Claude Desktop — zero install |
-| Embeddings | @xenova/transformers ONNX | 50MB, runs in Node, no Python/PyTorch |
+| Embeddings | @xenova/transformers ONNX | 130MB, runs in Node, no Python/PyTorch |
 | Vector store | In-memory JSON array | No Qdrant, no DB, brute-force cosine <100ms |
 | Python parsing | Regex | Works without Python runtime installed |
 | JS/TS parsing | Acorn AST | Proper AST, ships as npm dependency |

@@ -8,7 +8,10 @@
     "name": "SoulDriver",
     "url": "https://souldriver.com.au"
   },
-  "repository": "https://github.com/souldriver007/karp-inspector-lite",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/souldriver007/karp-inspector-lite"
+  },
   "icon": "icon.png",
   "license": "MIT",
   "privacy_policies": [

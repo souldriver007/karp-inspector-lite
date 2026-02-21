@@ -50,7 +50,7 @@ const vectorStore = {
 };
 
 // Cache version — bump this to force rebuild on format changes
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 1;
 
 function getCachePath() {
     return path.join(projectRoot, '.karp-inspector', 'index-cache.json');
@@ -148,11 +148,11 @@ let embedder = null;
 async function getEmbedder() {
     if (embedder) return embedder;
 
-    log('INFO', 'Loading embedding model (bge-small-en-v1.5, ~130MB, one-time download)...');
+    log('INFO', 'Loading embedding model (all-MiniLM-L6-v2, ~50MB, one-time download)...');
 
     // Dynamic import for ESM module
     const { pipeline: createPipeline } = await import('@xenova/transformers');
-    embedder = await createPipeline('feature-extraction', 'Xenova/bge-small-en-v1.5');
+    embedder = await createPipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
     log('INFO', 'Embedding model loaded');
     return embedder;

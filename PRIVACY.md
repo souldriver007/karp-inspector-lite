@@ -33,7 +33,7 @@ These files are stored only on your local filesystem and are never transmitted e
 
 ## Embedding Model
 
-On first use, the extension downloads a pre-trained embedding model (~50MB) from the Hugging Face model hub (`all-MiniLM-L6-v2`). This is a one-time download. After that, the model runs locally with no network access required.
+On first use, the extension downloads a pre-trained embedding model (~130MB) from the Hugging Face model hub (`bge-small-en-v1.5`). This is a one-time download. After that, the model runs locally with no network access required.
 
 The download is handled by the `@xenova/transformers` library. See [Xenova/transformers.js](https://github.com/xenova/transformers.js) for their privacy practices regarding model downloads.
 

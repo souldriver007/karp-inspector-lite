@@ -34,7 +34,7 @@ All notable changes to KARP Inspector Lite will be documented in this file.
 - Tested on Windows 11 with Claude Desktop
 
 **Technical Details:**
-- Embedding model: all-MiniLM-L6-v2 (384 dimensions, ~50MB ONNX)
+- Embedding model: bge-small-en-v1.5 (384 dimensions, ~130MB ONNX)
 - Vector similarity: Cosine similarity with in-memory search
 - Cache format: JSON with version validation
 - Protocol: MCP over stdio (JSON-RPC 2.0)
