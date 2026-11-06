@@ -343,6 +343,50 @@ async function fileOutline(filepath, includeBody = false) {
         }
     }
 
+    // --- SQL: regex-based outline of CREATE statements ---
+    else if (ext === '.sql') {
+        const sqlRegex = /^\s*CREATE\s+(?:OR\s+(?:REPLACE|ALTER)\s+)?(?:UNIQUE\s+)?(?:(?:NON)?CLUSTERED\s+)?(?:COLUMNSTORE\s+)?(FUNCTION|PROCEDURE|PROC|TRIGGER|MATERIALIZED\s+VIEW|VIEW|TABLE|INDEX|SCHEMA|TYPE|SEQUENCE)\s+(?:IF\s+NOT\s+EXISTS\s+)?([^\s(]+)/i;
+        const starts = [];
+        for (let i = 0; i < lines.length; i++) {
+            const m = lines[i].match(sqlRegex);
+            if (!m) continue;
+            let type = m[1].toLowerCase().replace(/\s+/g, '_');
+            if (type === 'proc') type = 'procedure';
+            starts.push({ type, name: m[2].replace(/;$/, ''), line_start: i + 1, signature: lines[i].trim() });
+        }
+        // line_end runs to the next CREATE (or EOF), so trailing GO/GRANT/comments stay in the block
+        starts.forEach((s, k) => {
+            s.line_end = k + 1 < starts.length ? starts[k + 1].line_start - 1 : lines.length;
+            if (includeBody) s.body_preview = lines.slice(s.line_start - 1, s.line_start + 4).join('\n');
+            outline.push(s);
+        });
+        if (outline.length === 0) {
+            outline.push({ type: 'file_info', name: path.basename(filepath), total_lines: lines.length, extension: ext });
+        }
+    }
+
+    // --- Shell / Bats: functions and @test blocks ---
+    else if (['.sh', '.bash', '.bats'].includes(ext)) {
+        const batsRegex = /^\s*@test\s+(["'])(.*)\1\s*\{/;
+        const fnRegex = /^\s*(?:function\s+([A-Za-z_][\w:.-]*)\s*(?:\(\s*\))?|([A-Za-z_][\w:.-]*)\s*\(\s*\))\s*\{?/;
+        for (let i = 0; i < lines.length; i++) {
+            const t = lines[i].match(batsRegex);
+            const f = t ? null : lines[i].match(fnRegex);
+            if (!t && !f) continue;
+            const entry = {
+                type: t ? 'test' : 'function',
+                name: t ? t[2] : (f[1] || f[2]),
+                line_start: i + 1,
+                signature: lines[i].trim().replace(/\s*\{\s*$/, '')
+            };
+            if (includeBody) entry.body_preview = lines.slice(i, Math.min(i + 5, lines.length)).join('\n');
+            outline.push(entry);
+        }
+        if (outline.length === 0) {
+            outline.push({ type: 'file_info', name: path.basename(filepath), total_lines: lines.length, extension: ext });
+        }
+    }
+
     // --- Other files: basic info ---
     else {
         outline.push({
